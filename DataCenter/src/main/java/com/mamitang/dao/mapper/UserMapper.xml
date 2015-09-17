@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.com.mamitang.dao.UserMapper">
+
+
+    <resultMap id="User" type="com.com.mamitang.entity.UserEntity" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="username" property="userName" jdbcType="VARCHAR" />
+        <result column="password" property="passWord" jdbcType="VARCHAR" />
+        <result column="address" property="address" jdbcType="VARCHAR" />
+        <result column="email" property="eMail" jdbcType="VARCHAR" />
+        <result column="user_type" property="userType" jdbcType="INTEGER" />
+        <result column="tel" property="tel" jdbcType="VARCHAR" />
+        <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+        <result column="deleteflag" property="deleteFlag" jdbcType="INTEGER" />
+        <result column="createtime" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <select id="login" resultMap="User">
+        select
+        id, username, address, email, user_type, createtime
+    from shopping_user
+    where username = #{0, jdbcType=INTEGER} and password = #{1, jdbcType=VARCHAR}
+    </select>
+
+
+    <select id="selectUserByID" resultMap="User" parameterType="int">
+        select id, username, password
+          from shopping_user
+      where id = #{id}
+    </select>
+</mapper>
