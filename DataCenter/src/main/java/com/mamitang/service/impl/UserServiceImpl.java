@@ -1,8 +1,8 @@
 package com.mamitang.service.impl;
 
 import com.mamitang.MD5Utils;
+import com.mamitang.dao.UserEntityMapper;
 import com.mamitang.entity.UserEntity;
-import com.mamitang.dao.UserMapper;
 import com.mamitang.service.IUserService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +17,12 @@ import java.security.NoSuchAlgorithmException;
 public class UserServiceImpl implements IUserService{
 
     @Autowired
-    private UserMapper userDao;
+    private UserEntityMapper userDao;
 
     private Logger logger = Logger.getLogger(UserServiceImpl.class);
 
     public UserEntity getUserById(int id) {
-        return userDao.selectUserByID(id);
+        return userDao.selectByPrimaryKey(id);
     }
 
     public UserEntity login(String userName, String passWord) {
@@ -33,7 +33,7 @@ public class UserServiceImpl implements IUserService{
             logger.error(e.getMessage());
             return null;
         }
-        return userDao.login(userName, passStr);
+        return userDao.selectByUserName(userName, passStr);
     }
 
 }

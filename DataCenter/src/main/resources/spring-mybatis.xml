@@ -17,7 +17,7 @@
     <!-- 引入jdbc配置文件 -->
     <context:property-placeholder location="classpath:jdbc.properties"/>
     <!-- 扫描文件（自动将servicec层注入） -->
-    <context:component-scan base-package="com.com.labor"/>
+    <context:component-scan base-package="com.mamitang"/>
     <!-- 配置数据源 -->
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         <property name="driverClassName" value="${jdbc_driverClassName}"></property>
@@ -50,14 +50,14 @@
     <bean id="sqlSessionFactory"
           class="org.mybatis.spring.SqlSessionFactoryBean"
           p:dataSource-ref="dataSource"
-          p:mapperLocations="classpath:/com/com.labor/dao/mapper/*.xml"/>
+          p:mapperLocations="classpath:/com/mamitang/dao/mapper/*.xml"/>
     <!-- configLocation为mybatis属性 mapperLocations为所有mapper-->
 
     <!-- 自动扫描接口-->
     <!-- spring与mybatis整合配置，扫描所有dao -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
-          p:basePackage="com.com.mamitang.dao"
+          p:basePackage="com.mamitang.dao"
           p:sqlSessionFactoryBeanName="sqlSessionFactory"
-          p:annotationClass="com.com.mamitang.DaoMaster"/>
+          p:annotationClass="com.mamitang.DaoMaster"/>
 
 </beans>

@@ -11,10 +11,7 @@ public class UserEntityToModel {
 
     public UserModel convertEntity(UserEntity userEntity){
         UserModel userModel = new UserModel();
-        userModel.setUserName(userEntity.getUserName());
-        userModel.seteMail(userEntity.geteMail());
-        userModel.setPhone(userEntity.getMobile());
-        userModel.setUserType(userEntity.getUserType());
+        userModel.setUserName(userEntity.getUsername());
         return userModel;
     }
 

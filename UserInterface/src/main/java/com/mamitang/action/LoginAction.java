@@ -1,8 +1,8 @@
 package com.mamitang.action;
 
 import com.alibaba.fastjson.JSON;
-import com.mamitang.common.Constant;
-import com.mamitang.common.ReturnStatus;
+import com.mamitang.Constant;
+import com.mamitang.ReturnStatus;
 import com.mamitang.entity.UserEntity;
 import com.mamitang.model.UserModel;
 import com.mamitang.request.UserLoginRequest;
