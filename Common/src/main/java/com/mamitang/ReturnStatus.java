@@ -17,5 +17,10 @@ public class ReturnStatus {
     //登录失败
     public final static String LOGIN_FAIL = "LOGIN_FAIL";
 
+    //fail to register
+    public final static String REGISTER_FAIL = "REGISTER_FAIL";
+
+    //success to register
+    public final static String REGISTER_SUCCESS = "REGISTER_SUCCESS";
 
 }
