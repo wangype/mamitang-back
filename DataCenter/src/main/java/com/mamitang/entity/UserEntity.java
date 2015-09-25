@@ -1,5 +1,7 @@
 package com.mamitang.entity;
 
+import java.util.Date;
+
 public class UserEntity {
     private Integer id;
 
@@ -7,31 +9,23 @@ public class UserEntity {
 
     private String password;
 
-    private String nicknames;
+    private String specialDish;
 
-    private String sex;
+    private Integer belongProvince;
 
-    private String charactersignature;
+    private Integer belongCity;
 
-    private String tag;
+    private Integer belongArea;
 
-    private String specialty;
+    private String nickname;
 
-    private String city;
+    private String headimg;
 
-    private String nowcity;
+    private Byte isactive;
 
-    private String permissions;
+    private Date createtime;
 
-    private Integer status;
-
-    private String userpictrue;
-
-    private Integer authentication;
-
-    private Integer relationship;
-
-    private String level;
+    private Integer applyStatus;
 
     public Integer getId() {
         return id;
@@ -57,107 +51,75 @@ public class UserEntity {
         this.password = password;
     }
 
-    public String getNicknames() {
-        return nicknames;
+    public String getSpecialDish() {
+        return specialDish;
     }
 
-    public void setNicknames(String nicknames) {
-        this.nicknames = nicknames;
+    public void setSpecialDish(String specialDish) {
+        this.specialDish = specialDish;
     }
 
-    public String getSex() {
-        return sex;
+    public Integer getBelongProvince() {
+        return belongProvince;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex;
+    public void setBelongProvince(Integer belongProvince) {
+        this.belongProvince = belongProvince;
     }
 
-    public String getCharactersignature() {
-        return charactersignature;
+    public Integer getBelongCity() {
+        return belongCity;
     }
 
-    public void setCharactersignature(String charactersignature) {
-        this.charactersignature = charactersignature;
+    public void setBelongCity(Integer belongCity) {
+        this.belongCity = belongCity;
     }
 
-    public String getTag() {
-        return tag;
+    public Integer getBelongArea() {
+        return belongArea;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setBelongArea(Integer belongArea) {
+        this.belongArea = belongArea;
     }
 
-    public String getSpecialty() {
-        return specialty;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setSpecialty(String specialty) {
-        this.specialty = specialty;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
-    public String getCity() {
-        return city;
+    public String getHeadimg() {
+        return headimg;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setHeadimg(String headimg) {
+        this.headimg = headimg;
     }
 
-    public String getNowcity() {
-        return nowcity;
+    public Byte getIsactive() {
+        return isactive;
     }
 
-    public void setNowcity(String nowcity) {
-        this.nowcity = nowcity;
+    public void setIsactive(Byte isactive) {
+        this.isactive = isactive;
     }
 
-    public String getPermissions() {
-        return permissions;
+    public Date getCreatetime() {
+        return createtime;
     }
 
-    public void setPermissions(String permissions) {
-        this.permissions = permissions;
+    public void setCreatetime(Date createtime) {
+        this.createtime = createtime;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getApplyStatus() {
+        return applyStatus;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public String getUserpictrue() {
-        return userpictrue;
-    }
-
-    public void setUserpictrue(String userpictrue) {
-        this.userpictrue = userpictrue;
-    }
-
-    public Integer getAuthentication() {
-        return authentication;
-    }
-
-    public void setAuthentication(Integer authentication) {
-        this.authentication = authentication;
-    }
-
-    public Integer getRelationship() {
-        return relationship;
-    }
-
-    public void setRelationship(Integer relationship) {
-        this.relationship = relationship;
-    }
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
+    public void setApplyStatus(Integer applyStatus) {
+        this.applyStatus = applyStatus;
     }
 }
