@@ -1,6 +1,7 @@
 package com.mamitang.service.impl;
 
 import com.mamitang.MD5Utils;
+
 import com.mamitang.dao.UserEntityMapper;
 import com.mamitang.entity.UserEntity;
 import com.mamitang.service.IUserService;
@@ -9,11 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 /**
  * Created by wyp on 15-7-2.
  */
-@Service
+@Service("userService")
 public class UserServiceImpl implements IUserService{
 
     @Autowired
@@ -34,6 +36,27 @@ public class UserServiceImpl implements IUserService{
             return null;
         }
         return userDao.selectByUserName(userName, passStr);
+    }
+
+    public UserEntity getUserByName(String username) {
+        UserEntity user = userDao.getUserByName(username);
+        return user;
+    }
+
+    public void register(UserEntity user) {
+        String passStr = null;
+        try {
+            //convert to md5 before insert into database
+            passStr = MD5Utils.string2MD5(user.getPassword());
+        } catch (NoSuchAlgorithmException e) {
+            logger.error(e.getMessage());
+            return;
+        }
+        userDao.insert(user);
+    }
+
+    public List<UserEntity> getAllUsers() {
+        return userDao.getAllUsers();
     }
 
 }
