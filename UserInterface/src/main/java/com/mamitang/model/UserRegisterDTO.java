@@ -9,7 +9,6 @@ import java.io.Serializable;
 public class UserRegisterDTO implements Serializable {
     public String username;
     public String password;
-    public String password2;
     public String specialDish;
     public String nickname;
 
@@ -35,14 +34,6 @@ public class UserRegisterDTO implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getPassword2() {
-        return password2;
-    }
-
-    public void setPassword2(String password2) {
-        this.password2 = password2;
     }
 
     public String getSpecialDish() {

@@ -17,6 +17,6 @@ public interface IUserService {
 
     public void register(UserEntity user);
 
-    List<UserEntity> getAllUsers();
+    List<UserEntity> getAllUsers(int num , int numOfPage);
 
 }

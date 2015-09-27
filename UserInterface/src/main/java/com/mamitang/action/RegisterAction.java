@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 
 @Controller
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/userinfo")
 public class RegisterAction {
 
     @Autowired
@@ -29,11 +29,8 @@ public class RegisterAction {
         RetResponse result = new RetResponse();
         UserEntity user_result = userService.getUserByName(userDTO.getUsername());
         if(user_result!=null){
-            result.setStatus(ReturnStatus.REGISTER_FAIL);
-            return result;
-        }
-        if(!userDTO.getPassword().equals(userDTO.getPassword2())){
-            result.setStatus(ReturnStatus.REGISTER_FAIL);
+            result.setStatus(1);
+            result.setRetMsg("user is existed");
             return result;
         }
         UserEntity userEntity = new UserEntity();
@@ -41,8 +38,9 @@ public class RegisterAction {
         userEntity.setPassword(userDTO.getPassword());
         userEntity.setSpecialDish(userDTO.getSpecialDish());
         userEntity.setNickname(userDTO.getNickname());
+        //throw exception in service layer???
         userService.register(userEntity);
-        result.setStatus(ReturnStatus.REGISTER_SUCCESS);
+        result.setStatus(0);
         return result;
     }
 }

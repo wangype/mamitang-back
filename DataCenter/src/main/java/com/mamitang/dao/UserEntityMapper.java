@@ -4,6 +4,7 @@ import com.mamitang.DaoMaster;
 import com.mamitang.entity.UserEntity;
 
 import java.util.List;
+import java.util.Map;
 
 @DaoMaster
 public interface UserEntityMapper {
@@ -23,5 +24,5 @@ public interface UserEntityMapper {
 
     UserEntity getUserByName(String username);
 
-    List<UserEntity> getAllUsers();
+    List<UserEntity> getAllUsers(Map map);
 }

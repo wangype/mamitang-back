@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping(value = "/show")
+@RequestMapping(value = "/userinfo")
 public class ShowUserAction {
 
     @Autowired
@@ -26,10 +27,10 @@ public class ShowUserAction {
 
     @RequestMapping(value = "/users" , method = RequestMethod.GET)
     @ResponseBody
-    public RetResponse showUsers(){
+    public RetResponse showUsers(@RequestParam int page , @RequestParam int numOfPage){
         RetResponse result = new RetResponse();
-        List<UserEntity> users = userService.getAllUsers();
-        result.setStatus(ReturnStatus.SUCCESS);
+        List<UserEntity> users = userService.getAllUsers(page , numOfPage);
+        result.setStatus(0);
         result.setData(users);
         return result;
     }

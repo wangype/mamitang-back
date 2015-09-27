@@ -1,7 +1,7 @@
 <html>
 <body>
 <h2>Hello World!</h2>
-<form action="/user/register" method="post">
+<form action="/userinfo/register" method="post">
     name:<input type="text" name="username"/><br/>
     password:<input type="password" name="password"/><br/>
     password again:<input type="password" name="password2"/><br/>

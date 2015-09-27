@@ -40,10 +40,12 @@
     WHERE username = #{username,jdbcType=VARCHAR}
   </select>
 
-  <select id="getAllUsers" resultMap="BaseResultMap">
+  <!--query all users with paging-->
+  <select id="getAllUsers" resultMap="BaseResultMap" parameterType="java.util.Map">
     SELECT
     <include refid="Base_Column_List" />
     FROM  tb_user
+    ORDER BY id LIMIT #{start} , #{end}
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

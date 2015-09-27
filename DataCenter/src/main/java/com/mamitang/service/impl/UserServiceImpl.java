@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wyp on 15-7-2.
@@ -55,8 +57,12 @@ public class UserServiceImpl implements IUserService{
         userDao.insert(user);
     }
 
-    public List<UserEntity> getAllUsers() {
-        return userDao.getAllUsers();
+    public List<UserEntity> getAllUsers(int page , int numOfPage) {
+        int start = (page-1)*numOfPage;
+        Map map = new HashMap();
+        map.put("start" , start);
+        map.put("end" , numOfPage);
+        return userDao.getAllUsers(map);
     }
 
 }
