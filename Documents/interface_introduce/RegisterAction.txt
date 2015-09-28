@@ -1,0 +1,13 @@
+注册接口
+
+url: /userinfo/register/
+param: {'username':'xxxxx'}
+	   {'password':'xxxxx'}
+	   {'specialDish':'xxxxx'}
+	   {'nickname':'xxxxx'}
+method: POST
+
+
+//返回的status中只有两个值，成功为0，失败为1,后续的接口都是如此
+response:
+{'status': 0} 
