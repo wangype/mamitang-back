@@ -5,15 +5,17 @@ package com.mamitang.response;
  */
 public class RetResponse {
 
-    private String status;
+    private int status;
 
     private Object data;
 
-    public String getStatus() {
+    private String retMsg;
+
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -23,5 +25,13 @@ public class RetResponse {
 
     public void setData(Object data) {
         this.data = data;
+    }
+
+    public String getRetMsg() {
+        return retMsg;
+    }
+
+    public void setRetMsg(String retMsg) {
+        this.retMsg = retMsg;
     }
 }

@@ -3,6 +3,9 @@ package com.mamitang.dao;
 import com.mamitang.DaoMaster;
 import com.mamitang.entity.UserEntity;
 
+import java.util.List;
+import java.util.Map;
+
 @DaoMaster
 public interface UserEntityMapper {
     int deleteByPrimaryKey(Integer id);
@@ -17,5 +20,11 @@ public interface UserEntityMapper {
 
     int updateByPrimaryKey(UserEntity record);
 
-    UserEntity selectByUserName(String userName, String passWord);
+    UserEntity selectByUserName(String userName, String passStr);
+
+    UserEntity getUserByName(String username);
+
+    List<UserEntity> getAllUsers(Map map);
+
+    Long getAllUsersCount();
 }

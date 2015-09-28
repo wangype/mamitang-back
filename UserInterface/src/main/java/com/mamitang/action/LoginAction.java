@@ -33,22 +33,25 @@ public class LoginAction {
                              HttpServletRequest request) {
         RetResponse retResponse = new RetResponse();
         if (passWordRequest == null || passWordRequest.equals("")) {
-            retResponse.setStatus(ReturnStatus.UNKOWN_ERROR);
+            retResponse.setStatus(ReturnStatus.FAIL);
+            retResponse.setRetMsg("password is empty");
             return retResponse;
         }
         UserLoginRequest userLoginRequest = JSON.parseObject(passWordRequest, UserLoginRequest.class);
         if (userLoginRequest == null || userLoginRequest.getPassWord() == null) {
-            retResponse.setStatus(ReturnStatus.UNKOWN_ERROR);
+            retResponse.setStatus(ReturnStatus.FAIL);
+            retResponse.setRetMsg("password is empty");
             return retResponse;
         }
         UserEntity userEntity = userService.login(userName, userLoginRequest.getPassWord());
         if (userEntity == null) {
-            retResponse.setStatus(ReturnStatus.LOGIN_FAIL);
+            retResponse.setStatus(ReturnStatus.FAIL);
+            retResponse.setRetMsg("user does not exist");
             return retResponse;
         }
         UserModel userModel = ConvertToolUtils.userEntityToModel.convertEntity(userEntity);
         request.getSession().setAttribute(Constant.USERSESSION, userModel);
-        retResponse.setStatus(ReturnStatus.LOGIN_SUCCESS);
+        retResponse.setStatus(ReturnStatus.SUCCESS);
         retResponse.setData(userModel);
         return retResponse;
     }

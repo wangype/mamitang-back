@@ -1,231 +1,207 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mamitang.dao.UserEntityMapper" >
-  <resultMap id="BaseResultMap" type="com.mamitang.entity.UserEntity" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="UserName" property="username" jdbcType="VARCHAR" />
-    <result column="PassWord" property="password" jdbcType="VARCHAR" />
-    <result column="NickNames" property="nicknames" jdbcType="VARCHAR" />
-    <result column="Sex" property="sex" jdbcType="VARCHAR" />
-    <result column="CharacterSignature" property="charactersignature" jdbcType="VARCHAR" />
-    <result column="Tag" property="tag" jdbcType="VARCHAR" />
-    <result column="Specialty" property="specialty" jdbcType="VARCHAR" />
-    <result column="City" property="city" jdbcType="VARCHAR" />
-    <result column="NowCity" property="nowcity" jdbcType="VARCHAR" />
-    <result column="Permissions" property="permissions" jdbcType="VARCHAR" />
-    <result column="Status" property="status" jdbcType="INTEGER" />
-    <result column="UserPictrue" property="userpictrue" jdbcType="VARCHAR" />
-    <result column="Authentication" property="authentication" jdbcType="INTEGER" />
-    <result column="relationship" property="relationship" jdbcType="INTEGER" />
-    <result column="Level" property="level" jdbcType="VARCHAR" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mamitang.dao.UserEntityMapper">
+  <resultMap id="BaseResultMap" type="com.mamitang.entity.UserEntity">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="special_dish" jdbcType="VARCHAR" property="specialDish" />
+    <result column="belong_province" jdbcType="INTEGER" property="belongProvince" />
+    <result column="belong_city" jdbcType="INTEGER" property="belongCity" />
+    <result column="belong_area" jdbcType="INTEGER" property="belongArea" />
+    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="headimg" jdbcType="VARCHAR" property="headimg" />
+    <result column="isactive" jdbcType="TINYINT" property="isactive" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="apply_status" jdbcType="INTEGER" property="applyStatus" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    id, UserName, PassWord, NickNames, Sex, CharacterSignature, Tag, Specialty, City, 
-    NowCity, Permissions, Status, UserPictrue, Authentication, relationship, Level
+  <sql id="Base_Column_List">
+    id, username, password, special_dish, belong_province, belong_city, belong_area, 
+    nickname, headimg, isactive, createtime, apply_status
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from user
+    from tb_user
     where id = #{id,jdbcType=INTEGER}
   </select>
 
-  <select id="selectByUserName" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select
+  <select id="selectByUserName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT
     <include refid="Base_Column_List" />
-    from user
-    where username = #{0,jdbcType=VARCHAR} and password = #{1,jdbcType=VARCHAR}
+    FROM  tb_user
+    WHERE username = #{0,jdbcType=VARCHAR} and password = #{1,jdbcType=VARCHAR}
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from user
+  <select id="getUserByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM  tb_user
+    WHERE username = #{username,jdbcType=VARCHAR}
+  </select>
+
+  <!--query all users with paging-->
+  <select id="getAllUsers" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM  tb_user
+    ORDER BY id LIMIT #{start} , #{end}
+  </select>
+
+  <!--get count of all users-->
+  <select id="getAllUsersCount" resultType="java.lang.Long">
+    SELECT
+    COUNT(*)
+    FROM tb_user
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.mamitang.entity.UserEntity" >
-    insert into user (id, UserName, PassWord, 
-      NickNames, Sex, CharacterSignature, 
-      Tag, Specialty, City, 
-      NowCity, Permissions, Status, 
-      UserPictrue, Authentication, relationship, 
-      Level)
+  <insert id="insert" parameterType="com.mamitang.entity.UserEntity">
+    insert into tb_user (id, username, password, 
+      special_dish, belong_province, belong_city, 
+      belong_area, nickname, headimg, 
+      isactive, createtime, apply_status
+      )
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{nicknames,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{charactersignature,jdbcType=VARCHAR}, 
-      #{tag,jdbcType=VARCHAR}, #{specialty,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
-      #{nowcity,jdbcType=VARCHAR}, #{permissions,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      #{userpictrue,jdbcType=VARCHAR}, #{authentication,jdbcType=INTEGER}, #{relationship,jdbcType=INTEGER}, 
-      #{level,jdbcType=VARCHAR})
+      #{specialDish,jdbcType=VARCHAR}, #{belongProvince,jdbcType=INTEGER}, #{belongCity,jdbcType=INTEGER}, 
+      #{belongArea,jdbcType=INTEGER}, #{nickname,jdbcType=VARCHAR}, #{headimg,jdbcType=VARCHAR}, 
+      #{isactive,jdbcType=TINYINT}, #{createtime,jdbcType=TIMESTAMP}, #{applyStatus,jdbcType=INTEGER}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.mamitang.entity.UserEntity" >
-    insert into user
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+  <insert id="insertSelective" parameterType="com.mamitang.entity.UserEntity">
+    insert into tb_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="username != null" >
-        UserName,
+      <if test="username != null">
+        username,
       </if>
-      <if test="password != null" >
-        PassWord,
+      <if test="password != null">
+        password,
       </if>
-      <if test="nicknames != null" >
-        NickNames,
+      <if test="specialDish != null">
+        special_dish,
       </if>
-      <if test="sex != null" >
-        Sex,
+      <if test="belongProvince != null">
+        belong_province,
       </if>
-      <if test="charactersignature != null" >
-        CharacterSignature,
+      <if test="belongCity != null">
+        belong_city,
       </if>
-      <if test="tag != null" >
-        Tag,
+      <if test="belongArea != null">
+        belong_area,
       </if>
-      <if test="specialty != null" >
-        Specialty,
+      <if test="nickname != null">
+        nickname,
       </if>
-      <if test="city != null" >
-        City,
+      <if test="headimg != null">
+        headimg,
       </if>
-      <if test="nowcity != null" >
-        NowCity,
+      <if test="isactive != null">
+        isactive,
       </if>
-      <if test="permissions != null" >
-        Permissions,
+      <if test="createtime != null">
+        createtime,
       </if>
-      <if test="status != null" >
-        Status,
-      </if>
-      <if test="userpictrue != null" >
-        UserPictrue,
-      </if>
-      <if test="authentication != null" >
-        Authentication,
-      </if>
-      <if test="relationship != null" >
-        relationship,
-      </if>
-      <if test="level != null" >
-        Level,
+      <if test="applyStatus != null">
+        apply_status,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="username != null" >
+      <if test="username != null">
         #{username,jdbcType=VARCHAR},
       </if>
-      <if test="password != null" >
+      <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="nicknames != null" >
-        #{nicknames,jdbcType=VARCHAR},
+      <if test="specialDish != null">
+        #{specialDish,jdbcType=VARCHAR},
       </if>
-      <if test="sex != null" >
-        #{sex,jdbcType=VARCHAR},
+      <if test="belongProvince != null">
+        #{belongProvince,jdbcType=INTEGER},
       </if>
-      <if test="charactersignature != null" >
-        #{charactersignature,jdbcType=VARCHAR},
+      <if test="belongCity != null">
+        #{belongCity,jdbcType=INTEGER},
       </if>
-      <if test="tag != null" >
-        #{tag,jdbcType=VARCHAR},
+      <if test="belongArea != null">
+        #{belongArea,jdbcType=INTEGER},
       </if>
-      <if test="specialty != null" >
-        #{specialty,jdbcType=VARCHAR},
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
       </if>
-      <if test="city != null" >
-        #{city,jdbcType=VARCHAR},
+      <if test="headimg != null">
+        #{headimg,jdbcType=VARCHAR},
       </if>
-      <if test="nowcity != null" >
-        #{nowcity,jdbcType=VARCHAR},
+      <if test="isactive != null">
+        #{isactive,jdbcType=TINYINT},
       </if>
-      <if test="permissions != null" >
-        #{permissions,jdbcType=VARCHAR},
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="status != null" >
-        #{status,jdbcType=INTEGER},
-      </if>
-      <if test="userpictrue != null" >
-        #{userpictrue,jdbcType=VARCHAR},
-      </if>
-      <if test="authentication != null" >
-        #{authentication,jdbcType=INTEGER},
-      </if>
-      <if test="relationship != null" >
-        #{relationship,jdbcType=INTEGER},
-      </if>
-      <if test="level != null" >
-        #{level,jdbcType=VARCHAR},
+      <if test="applyStatus != null">
+        #{applyStatus,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mamitang.entity.UserEntity" >
-    update user
-    <set >
-      <if test="username != null" >
-        UserName = #{username,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKeySelective" parameterType="com.mamitang.entity.UserEntity">
+    update tb_user
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
       </if>
-      <if test="password != null" >
-        PassWord = #{password,jdbcType=VARCHAR},
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="nicknames != null" >
-        NickNames = #{nicknames,jdbcType=VARCHAR},
+      <if test="specialDish != null">
+        special_dish = #{specialDish,jdbcType=VARCHAR},
       </if>
-      <if test="sex != null" >
-        Sex = #{sex,jdbcType=VARCHAR},
+      <if test="belongProvince != null">
+        belong_province = #{belongProvince,jdbcType=INTEGER},
       </if>
-      <if test="charactersignature != null" >
-        CharacterSignature = #{charactersignature,jdbcType=VARCHAR},
+      <if test="belongCity != null">
+        belong_city = #{belongCity,jdbcType=INTEGER},
       </if>
-      <if test="tag != null" >
-        Tag = #{tag,jdbcType=VARCHAR},
+      <if test="belongArea != null">
+        belong_area = #{belongArea,jdbcType=INTEGER},
       </if>
-      <if test="specialty != null" >
-        Specialty = #{specialty,jdbcType=VARCHAR},
+      <if test="nickname != null">
+        nickname = #{nickname,jdbcType=VARCHAR},
       </if>
-      <if test="city != null" >
-        City = #{city,jdbcType=VARCHAR},
+      <if test="headimg != null">
+        headimg = #{headimg,jdbcType=VARCHAR},
       </if>
-      <if test="nowcity != null" >
-        NowCity = #{nowcity,jdbcType=VARCHAR},
+      <if test="isactive != null">
+        isactive = #{isactive,jdbcType=TINYINT},
       </if>
-      <if test="permissions != null" >
-        Permissions = #{permissions,jdbcType=VARCHAR},
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="status != null" >
-        Status = #{status,jdbcType=INTEGER},
-      </if>
-      <if test="userpictrue != null" >
-        UserPictrue = #{userpictrue,jdbcType=VARCHAR},
-      </if>
-      <if test="authentication != null" >
-        Authentication = #{authentication,jdbcType=INTEGER},
-      </if>
-      <if test="relationship != null" >
-        relationship = #{relationship,jdbcType=INTEGER},
-      </if>
-      <if test="level != null" >
-        Level = #{level,jdbcType=VARCHAR},
+      <if test="applyStatus != null">
+        apply_status = #{applyStatus,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.mamitang.entity.UserEntity" >
-    update user
-    set UserName = #{username,jdbcType=VARCHAR},
-      PassWord = #{password,jdbcType=VARCHAR},
-      NickNames = #{nicknames,jdbcType=VARCHAR},
-      Sex = #{sex,jdbcType=VARCHAR},
-      CharacterSignature = #{charactersignature,jdbcType=VARCHAR},
-      Tag = #{tag,jdbcType=VARCHAR},
-      Specialty = #{specialty,jdbcType=VARCHAR},
-      City = #{city,jdbcType=VARCHAR},
-      NowCity = #{nowcity,jdbcType=VARCHAR},
-      Permissions = #{permissions,jdbcType=VARCHAR},
-      Status = #{status,jdbcType=INTEGER},
-      UserPictrue = #{userpictrue,jdbcType=VARCHAR},
-      Authentication = #{authentication,jdbcType=INTEGER},
-      relationship = #{relationship,jdbcType=INTEGER},
-      Level = #{level,jdbcType=VARCHAR}
+  <update id="updateByPrimaryKey" parameterType="com.mamitang.entity.UserEntity">
+    update tb_user
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      special_dish = #{specialDish,jdbcType=VARCHAR},
+      belong_province = #{belongProvince,jdbcType=INTEGER},
+      belong_city = #{belongCity,jdbcType=INTEGER},
+      belong_area = #{belongArea,jdbcType=INTEGER},
+      nickname = #{nickname,jdbcType=VARCHAR},
+      headimg = #{headimg,jdbcType=VARCHAR},
+      isactive = #{isactive,jdbcType=TINYINT},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      apply_status = #{applyStatus,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
