@@ -45,24 +45,31 @@ public class UserServiceImpl implements IUserService{
         return user;
     }
 
-    public void register(UserEntity user) {
+    public int register(UserEntity user) {
         String passStr = null;
         try {
             //convert to md5 before insert into database
             passStr = MD5Utils.string2MD5(user.getPassword());
         } catch (NoSuchAlgorithmException e) {
             logger.error(e.getMessage());
-            return;
+            return 0;
         }
-        userDao.insert(user);
+        int result_id = userDao.insert(user);
+        return result_id;
     }
 
-    public List<UserEntity> getAllUsers(int page , int numOfPage) {
+    public Map getAllUsers(int page , int numOfPage) {
+        Long count = userDao.getAllUsersCount();
+        int countOfPage = (int)Math.ceil((double)count.intValue() / (double)numOfPage);
         int start = (page-1)*numOfPage;
         Map map = new HashMap();
         map.put("start" , start);
-        map.put("end" , numOfPage);
-        return userDao.getAllUsers(map);
+        map.put("end", numOfPage);
+        List<UserEntity> list = userDao.getAllUsers(map);
+        Map result_map = new HashMap();
+        result_map.put("countOfPage",countOfPage);
+        result_map.put("currentList",list);
+        return result_map;
     }
 
 }

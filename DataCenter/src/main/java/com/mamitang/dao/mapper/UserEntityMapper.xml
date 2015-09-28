@@ -48,6 +48,13 @@
     ORDER BY id LIMIT #{start} , #{end}
   </select>
 
+  <!--get count of all users-->
+  <select id="getAllUsersCount" resultType="java.lang.Long">
+    SELECT
+    COUNT(*)
+    FROM tb_user
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from tb_user
     where id = #{id,jdbcType=INTEGER}

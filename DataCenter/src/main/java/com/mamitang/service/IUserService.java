@@ -3,20 +3,21 @@ package com.mamitang.service;
 import com.mamitang.entity.UserEntity;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by wyp on 15-7-22.
  */
 public interface IUserService {
 
-    public UserEntity getUserById(int id);
+    UserEntity getUserById(int id);
 
-    public UserEntity login(String userName, String passWord);
+    UserEntity login(String userName, String passWord);
 
-    public UserEntity getUserByName(String username);
+    UserEntity getUserByName(String username);
 
-    public void register(UserEntity user);
+    int register(UserEntity user);
 
-    List<UserEntity> getAllUsers(int num , int numOfPage);
+    Map getAllUsers(int num , int numOfPage);
 
 }

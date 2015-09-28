@@ -5,8 +5,13 @@ package com.mamitang;
  */
 public class ReturnStatus {
 
+    //stand for success
+    public final static int SUCCESS = 0;
 
-    public final static String SUCCESS = "SUCCESS";
+    //stand for fail
+    public final  static int FAIL = 1;
+
+    //public final static String SUCCESS = "SUCCESS";
 
     //未知错误
     public final static String UNKOWN_ERROR = "UNKOWN_ERROR";

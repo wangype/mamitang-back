@@ -39,8 +39,12 @@ public class RegisterAction {
         userEntity.setSpecialDish(userDTO.getSpecialDish());
         userEntity.setNickname(userDTO.getNickname());
         //throw exception in service layer???
-        userService.register(userEntity);
-        result.setStatus(0);
+        int result_id = userService.register(userEntity);
+        if(result_id > 0){
+            result.setStatus(ReturnStatus.SUCCESS);
+        }else{
+            result.setStatus(ReturnStatus.FAIL);
+        }
         return result;
     }
 }
