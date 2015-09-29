@@ -26,5 +26,5 @@ public interface UserEntityMapper {
 
     List<UserEntity> getAllUsers(Map map);
 
-    Long getAllUsersCount();
+    int getAllUsersCount();
 }

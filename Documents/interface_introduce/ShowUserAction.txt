@@ -1,0 +1,42 @@
+用户列表接口
+注意，提供的接口风格为RESTFUl风格，参数在路径中传递
+url: /userinfo/users/{page}/to{numOfPage}
+param: {'page':'xx'}
+	   {'numOfPage':'xx'}
+method: GET
+
+
+//返回的status中只有两个值，成功为0，失败为1,后续的接口都是如此
+response:
+currentList：当前页的User列表
+countOfPage：总页数
+
+{
+  "data": {
+    "currentList": [
+      {
+        "id": 1,
+        "nickname": "sheep",
+        "password": "123",
+        "specialDish": "fish",
+        "username": "lyy"
+      },
+      {
+        "id": 2,
+        "nickname": "sf",
+        "password": "123",
+        "specialDish": "fs",
+        "username": "lyy11"
+      },
+      {
+        "id": 3,
+        "nickname": "sf2",
+        "password": "qwe",
+        "specialDish": "fs2",
+        "username": "lyy22"
+      }
+    ],
+    "countOfPage": 4
+  },
+  "status": 0
+}
