@@ -59,8 +59,8 @@ public class UserServiceImpl implements IUserService{
     }
 
     public Map getAllUsers(int page , int numOfPage) {
-        Long count = userDao.getAllUsersCount();
-        int countOfPage = (int)Math.ceil((double)count.intValue() / (double)numOfPage);
+        int count = userDao.getAllUsersCount();
+        int countOfPage = (int)Math.ceil((double)count / (double)numOfPage);
         int start = (page-1)*numOfPage;
         Map map = new HashMap();
         map.put("start" , start);
