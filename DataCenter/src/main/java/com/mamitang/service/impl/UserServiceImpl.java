@@ -58,13 +58,15 @@ public class UserServiceImpl implements IUserService{
         return result_id;
     }
 
-    public Map getAllUsers(int page , int numOfPage) {
+    public Map getAllUsers(int page , int numOfPage , String querykey , String queryvalue) {
         int count = userDao.getAllUsersCount();
         int countOfPage = (int)Math.ceil((double)count / (double)numOfPage);
         int start = (page-1)*numOfPage;
         Map map = new HashMap();
         map.put("start" , start);
         map.put("end", numOfPage);
+        map.put("querykey", querykey);
+        map.put("queryvalue", queryvalue);
         List<UserEntity> list = userDao.getAllUsers(map);
         Map result_map = new HashMap();
         result_map.put("countOfPage",countOfPage);

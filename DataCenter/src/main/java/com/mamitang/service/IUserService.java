@@ -18,6 +18,6 @@ public interface IUserService {
 
     int register(UserEntity user);
 
-    Map getAllUsers(int num , int numOfPage);
+    Map getAllUsers(int num , int numOfPage , String querykey , String queryvalue);
 
 }

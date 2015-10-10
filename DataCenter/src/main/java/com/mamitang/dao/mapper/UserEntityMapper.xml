@@ -40,11 +40,15 @@
     WHERE username = #{username,jdbcType=VARCHAR}
   </select>
 
-  <!--query all users with paging-->
+  <!--query all users with paging
+    note:The column special_dish and nickname are just for test the function of the sql-->
   <select id="getAllUsers" resultMap="BaseResultMap" parameterType="java.util.Map">
     SELECT
     <include refid="Base_Column_List" />
     FROM  tb_user
+    <if test="querykey != null and queryvalue != null">
+      WHERE special_dish = #{querykey,jdbcType=VARCHAR} and nickname = #{queryvalue,jdbcType=VARCHAR}
+    </if>
     ORDER BY id LIMIT #{start} , #{end}
   </select>
 
