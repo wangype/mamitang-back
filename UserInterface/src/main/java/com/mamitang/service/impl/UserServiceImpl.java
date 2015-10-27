@@ -1,7 +1,6 @@
 package com.mamitang.service.impl;
 
 import com.mamitang.MD5Utils;
-
 import com.mamitang.dao.UserEntityMapper;
 import com.mamitang.entity.UserEntity;
 import com.mamitang.service.IUserService;

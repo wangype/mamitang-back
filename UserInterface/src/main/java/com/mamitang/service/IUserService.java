@@ -2,7 +2,6 @@ package com.mamitang.service;
 
 import com.mamitang.entity.UserEntity;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,6 +17,6 @@ public interface IUserService {
 
     int register(UserEntity user);
 
-    Map getAllUsers(int num , int numOfPage , String querykey , String queryvalue);
+    Map getAllUsers(int num, int numOfPage, String querykey, String queryvalue);
 
 }
