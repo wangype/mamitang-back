@@ -120,7 +120,7 @@ public class AdvertisementAction {
      */
     @RequestMapping(value = "update/{id}" , method = RequestMethod.POST)
     @ResponseBody
-    public RetResponse deleteAdvertisement(@PathVariable("id") int id , @RequestBody String paraminfo){
+    public RetResponse updateAdvertisement(@PathVariable("id") int id , @RequestBody String paraminfo){
         RetResponse result = new RetResponse();
         try {
             AdvertisementAddRequest request_info = JSON.parseObject(paraminfo, AdvertisementAddRequest.class);
