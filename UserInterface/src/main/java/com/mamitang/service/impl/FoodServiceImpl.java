@@ -96,6 +96,7 @@ public class FoodServiceImpl implements IFoodService {
         sql_map.put("querykey" , querykey);
         //对查询条件进行判断和转换
         if(queryvalue!=null && queryvalue!=""){
+            //如果查询值不为空，校验并转换
             int i = Integer.parseInt(queryvalue);
             if(!(i==0 || i==1)){
                 result.setRetMsg("the error query parameters");
@@ -103,8 +104,9 @@ public class FoodServiceImpl implements IFoodService {
                 return result;
             }
             sql_map.put("queryvalue", i);
+        }else {
+            sql_map.put("queryvalue" , queryvalue);
         }
-        sql_map.put("queryvalue" , queryvalue);
         //query by time
         sql_map.put("starttime" , start_time);
         sql_map.put("endtime" , end_time);

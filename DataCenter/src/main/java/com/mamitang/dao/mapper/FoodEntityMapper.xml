@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mamitang.dao.FoodEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.mamitang.entity.FoodEntity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="hid" property="hid" jdbcType="INTEGER" />
+    <result column="food_picture_url" property="foodPictureUrl" jdbcType="VARCHAR" />
+    <result column="food_name" property="foodName" jdbcType="VARCHAR" />
+    <result column="food_introduce" property="foodIntroduce" jdbcType="VARCHAR" />
+    <result column="food_price" property="foodPrice" jdbcType="DECIMAL" />
+    <result column="food_supply_num" property="foodSupplyNum" jdbcType="DECIMAL" />
+    <result column="food_begin_supply_date" property="foodBeginSupplyDate" jdbcType="TIMESTAMP" />
+    <result column="food_end_supply_date" property="foodEndSupplyDate" jdbcType="TIMESTAMP" />
+    <result column="food_label" property="foodLabel" jdbcType="VARCHAR" />
+    <result column="food_supply_type" property="foodSupplyType" jdbcType="INTEGER" />
+    <result column="food_supply_cycle" property="foodSupplyCycle" jdbcType="VARCHAR" />
+    <result column="food_state" property="foodState" jdbcType="INTEGER" />
+    <result column="food_is_home_page_show" property="foodIsHomePageShow" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, hid, food_picture_url, food_name, food_introduce, food_price, food_supply_num, 
+    food_begin_supply_date, food_end_supply_date, food_label, food_supply_type, food_supply_cycle, 
+    food_state, food_is_home_page_show
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mami_food_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <!--query all users with paging   &lt; <  |  &gt; >-->
+  <select id="getAllFoods" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM  mami_food_info WHERE 1=1
+    <if test="querykey=='foodSupplyType'.toString() and queryvalue!=null">
+      AND food_supply_type = #{queryvalue,jdbcType=INTEGER}
+    </if>
+    <if test="querykey=='foodState'.toString() and queryvalue!=null">
+      AND food_state = #{queryvalue,jdbcType=INTEGER}
+    </if>
+    <if test="starttime != null">
+      AND food_begin_supply_date &gt;= #{starttime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="endtime != null">
+      AND food_end_supply_date &lt;= #{endtime,jdbcType=TIMESTAMP}
+    </if>
+    ORDER BY id LIMIT #{start} , #{end}
+  </select>
+
+  <!--get count of all users  lyy-->
+  <select id="getAllAdvertisementsCount" resultType="java.lang.Integer">
+    SELECT
+    COUNT(*)
+    FROM mami_food_info
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mami_food_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mamitang.entity.FoodEntity" >
+    insert into mami_food_info (id, hid, food_picture_url, 
+      food_name, food_introduce, food_price, 
+      food_supply_num, food_begin_supply_date, food_end_supply_date, 
+      food_label, food_supply_type, food_supply_cycle, 
+      food_state, food_is_home_page_show)
+    values (#{id,jdbcType=INTEGER}, #{hid,jdbcType=INTEGER}, #{foodPictureUrl,jdbcType=VARCHAR}, 
+      #{foodName,jdbcType=VARCHAR}, #{foodIntroduce,jdbcType=VARCHAR}, #{foodPrice,jdbcType=DECIMAL}, 
+      #{foodSupplyNum,jdbcType=DECIMAL}, #{foodBeginSupplyDate,jdbcType=TIMESTAMP}, #{foodEndSupplyDate,jdbcType=TIMESTAMP}, 
+      #{foodLabel,jdbcType=VARCHAR}, #{foodSupplyType,jdbcType=INTEGER}, #{foodSupplyCycle,jdbcType=VARCHAR}, 
+      #{foodState,jdbcType=INTEGER}, #{foodIsHomePageShow,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mamitang.entity.FoodEntity" >
+    insert into mami_food_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="hid != null" >
+        hid,
+      </if>
+      <if test="foodPictureUrl != null" >
+        food_picture_url,
+      </if>
+      <if test="foodName != null" >
+        food_name,
+      </if>
+      <if test="foodIntroduce != null" >
+        food_introduce,
+      </if>
+      <if test="foodPrice != null" >
+        food_price,
+      </if>
+      <if test="foodSupplyNum != null" >
+        food_supply_num,
+      </if>
+      <if test="foodBeginSupplyDate != null" >
+        food_begin_supply_date,
+      </if>
+      <if test="foodEndSupplyDate != null" >
+        food_end_supply_date,
+      </if>
+      <if test="foodLabel != null" >
+        food_label,
+      </if>
+      <if test="foodSupplyType != null" >
+        food_supply_type,
+      </if>
+      <if test="foodSupplyCycle != null" >
+        food_supply_cycle,
+      </if>
+      <if test="foodState != null" >
+        food_state,
+      </if>
+      <if test="foodIsHomePageShow != null" >
+        food_is_home_page_show,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="hid != null" >
+        #{hid,jdbcType=INTEGER},
+      </if>
+      <if test="foodPictureUrl != null" >
+        #{foodPictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="foodName != null" >
+        #{foodName,jdbcType=VARCHAR},
+      </if>
+      <if test="foodIntroduce != null" >
+        #{foodIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="foodPrice != null" >
+        #{foodPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="foodSupplyNum != null" >
+        #{foodSupplyNum,jdbcType=DECIMAL},
+      </if>
+      <if test="foodBeginSupplyDate != null" >
+        #{foodBeginSupplyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="foodEndSupplyDate != null" >
+        #{foodEndSupplyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="foodLabel != null" >
+        #{foodLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="foodSupplyType != null" >
+        #{foodSupplyType,jdbcType=INTEGER},
+      </if>
+      <if test="foodSupplyCycle != null" >
+        #{foodSupplyCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="foodState != null" >
+        #{foodState,jdbcType=INTEGER},
+      </if>
+      <if test="foodIsHomePageShow != null" >
+        #{foodIsHomePageShow,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mamitang.entity.FoodEntity" >
+    update mami_food_info
+    <set >
+      <if test="hid != null" >
+        hid = #{hid,jdbcType=INTEGER},
+      </if>
+      <if test="foodPictureUrl != null" >
+        food_picture_url = #{foodPictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="foodName != null" >
+        food_name = #{foodName,jdbcType=VARCHAR},
+      </if>
+      <if test="foodIntroduce != null" >
+        food_introduce = #{foodIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="foodPrice != null" >
+        food_price = #{foodPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="foodSupplyNum != null" >
+        food_supply_num = #{foodSupplyNum,jdbcType=DECIMAL},
+      </if>
+      <if test="foodBeginSupplyDate != null" >
+        food_begin_supply_date = #{foodBeginSupplyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="foodEndSupplyDate != null" >
+        food_end_supply_date = #{foodEndSupplyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="foodLabel != null" >
+        food_label = #{foodLabel,jdbcType=VARCHAR},
+      </if>
+      <if test="foodSupplyType != null" >
+        food_supply_type = #{foodSupplyType,jdbcType=INTEGER},
+      </if>
+      <if test="foodSupplyCycle != null" >
+        food_supply_cycle = #{foodSupplyCycle,jdbcType=VARCHAR},
+      </if>
+      <if test="foodState != null" >
+        food_state = #{foodState,jdbcType=INTEGER},
+      </if>
+      <if test="foodIsHomePageShow != null" >
+        food_is_home_page_show = #{foodIsHomePageShow,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mamitang.entity.FoodEntity" >
+    update mami_food_info
+    set hid = #{hid,jdbcType=INTEGER},
+      food_picture_url = #{foodPictureUrl,jdbcType=VARCHAR},
+      food_name = #{foodName,jdbcType=VARCHAR},
+      food_introduce = #{foodIntroduce,jdbcType=VARCHAR},
+      food_price = #{foodPrice,jdbcType=DECIMAL},
+      food_supply_num = #{foodSupplyNum,jdbcType=DECIMAL},
+      food_begin_supply_date = #{foodBeginSupplyDate,jdbcType=TIMESTAMP},
+      food_end_supply_date = #{foodEndSupplyDate,jdbcType=TIMESTAMP},
+      food_label = #{foodLabel,jdbcType=VARCHAR},
+      food_supply_type = #{foodSupplyType,jdbcType=INTEGER},
+      food_supply_cycle = #{foodSupplyCycle,jdbcType=VARCHAR},
+      food_state = #{foodState,jdbcType=INTEGER},
+      food_is_home_page_show = #{foodIsHomePageShow,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

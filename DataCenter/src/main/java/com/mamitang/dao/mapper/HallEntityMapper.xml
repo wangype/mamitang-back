@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mamitang.dao.HallEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.mamitang.entity.HallEntity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="hall_name" property="hallName" jdbcType="VARCHAR" />
+    <result column="hall_phone" property="hallPhone" jdbcType="VARCHAR" />
+    <result column="hall_address" property="hallAddress" jdbcType="VARCHAR" />
+    <result column="hall_cover_url" property="hallCoverUrl" jdbcType="VARCHAR" />
+    <result column="hall_supply_type" property="hallSupplyType" jdbcType="INTEGER" />
+    <result column="hall_praise_num" property="hallPraiseNum" jdbcType="DECIMAL" />
+    <result column="hall_collection_num" property="hallCollectionNum" jdbcType="DECIMAL" />
+    <result column="hall_open_time" property="hallOpenTime" jdbcType="VARCHAR" />
+    <result column="hall_state" property="hallState" jdbcType="INTEGER" />
+    <result column="hall_create_date" property="hallCreateDate" jdbcType="TIMESTAMP" />
+    <result column="hall_food_story" property="hallFoodStory" jdbcType="VARCHAR" />
+    <result column="hall_introduce" property="hallIntroduce" jdbcType="VARCHAR" />
+    <result column="hall_is_open_for_all" property="hallIsOpenForAll" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, uid, hall_name, hall_phone, hall_address, hall_cover_url, hall_supply_type, hall_praise_num, 
+    hall_collection_num, hall_open_time, hall_state, hall_create_date, hall_food_story, 
+    hall_introduce, hall_is_open_for_all
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from mami_hall_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <!--get count of all users  lyy-->
+  <select id="getAllHallsCount" resultType="java.lang.Integer">
+    SELECT
+    COUNT(*)
+    FROM mami_hall_info
+  </select>
+
+  <!--query all users with paging   &lt; <  |  &gt; >-->
+  <select id="getAllHalls" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM  mami_hall_info WHERE 1=1
+    <if test="querykey=='hallSupplyType'.toString() and queryvalue!=null">
+      AND hall_supply_type = #{queryvalue,jdbcType=INTEGER}
+    </if>
+    <!--暂时忽略按角色条件查询-->
+    <if test="starttime != null">
+      AND hall_create_date &gt;= #{starttime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="endtime != null">
+      AND hall_create_date &lt;= #{endtime,jdbcType=TIMESTAMP}
+    </if>
+    ORDER BY id LIMIT #{start} , #{end}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from mami_hall_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mamitang.entity.HallEntity" >
+    insert into mami_hall_info (id, uid, hall_name, 
+      hall_phone, hall_address, hall_cover_url, 
+      hall_supply_type, hall_praise_num, hall_collection_num, 
+      hall_open_time, hall_state, hall_create_date, 
+      hall_food_story, hall_introduce, hall_is_open_for_all
+      )
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{hallName,jdbcType=VARCHAR}, 
+      #{hallPhone,jdbcType=VARCHAR}, #{hallAddress,jdbcType=VARCHAR}, #{hallCoverUrl,jdbcType=VARCHAR}, 
+      #{hallSupplyType,jdbcType=INTEGER}, #{hallPraiseNum,jdbcType=DECIMAL}, #{hallCollectionNum,jdbcType=DECIMAL}, 
+      #{hallOpenTime,jdbcType=VARCHAR}, #{hallState,jdbcType=INTEGER}, #{hallCreateDate,jdbcType=TIMESTAMP}, 
+      #{hallFoodStory,jdbcType=VARCHAR}, #{hallIntroduce,jdbcType=VARCHAR}, #{hallIsOpenForAll,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mamitang.entity.HallEntity" >
+    insert into mami_hall_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="hallName != null" >
+        hall_name,
+      </if>
+      <if test="hallPhone != null" >
+        hall_phone,
+      </if>
+      <if test="hallAddress != null" >
+        hall_address,
+      </if>
+      <if test="hallCoverUrl != null" >
+        hall_cover_url,
+      </if>
+      <if test="hallSupplyType != null" >
+        hall_supply_type,
+      </if>
+      <if test="hallPraiseNum != null" >
+        hall_praise_num,
+      </if>
+      <if test="hallCollectionNum != null" >
+        hall_collection_num,
+      </if>
+      <if test="hallOpenTime != null" >
+        hall_open_time,
+      </if>
+      <if test="hallState != null" >
+        hall_state,
+      </if>
+      <if test="hallCreateDate != null" >
+        hall_create_date,
+      </if>
+      <if test="hallFoodStory != null" >
+        hall_food_story,
+      </if>
+      <if test="hallIntroduce != null" >
+        hall_introduce,
+      </if>
+      <if test="hallIsOpenForAll != null" >
+        hall_is_open_for_all,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="hallName != null" >
+        #{hallName,jdbcType=VARCHAR},
+      </if>
+      <if test="hallPhone != null" >
+        #{hallPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="hallAddress != null" >
+        #{hallAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="hallCoverUrl != null" >
+        #{hallCoverUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="hallSupplyType != null" >
+        #{hallSupplyType,jdbcType=INTEGER},
+      </if>
+      <if test="hallPraiseNum != null" >
+        #{hallPraiseNum,jdbcType=DECIMAL},
+      </if>
+      <if test="hallCollectionNum != null" >
+        #{hallCollectionNum,jdbcType=DECIMAL},
+      </if>
+      <if test="hallOpenTime != null" >
+        #{hallOpenTime,jdbcType=VARCHAR},
+      </if>
+      <if test="hallState != null" >
+        #{hallState,jdbcType=INTEGER},
+      </if>
+      <if test="hallCreateDate != null" >
+        #{hallCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hallFoodStory != null" >
+        #{hallFoodStory,jdbcType=VARCHAR},
+      </if>
+      <if test="hallIntroduce != null" >
+        #{hallIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="hallIsOpenForAll != null" >
+        #{hallIsOpenForAll,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mamitang.entity.HallEntity" >
+    update mami_hall_info
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="hallName != null" >
+        hall_name = #{hallName,jdbcType=VARCHAR},
+      </if>
+      <if test="hallPhone != null" >
+        hall_phone = #{hallPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="hallAddress != null" >
+        hall_address = #{hallAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="hallCoverUrl != null" >
+        hall_cover_url = #{hallCoverUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="hallSupplyType != null" >
+        hall_supply_type = #{hallSupplyType,jdbcType=INTEGER},
+      </if>
+      <if test="hallPraiseNum != null" >
+        hall_praise_num = #{hallPraiseNum,jdbcType=DECIMAL},
+      </if>
+      <if test="hallCollectionNum != null" >
+        hall_collection_num = #{hallCollectionNum,jdbcType=DECIMAL},
+      </if>
+      <if test="hallOpenTime != null" >
+        hall_open_time = #{hallOpenTime,jdbcType=VARCHAR},
+      </if>
+      <if test="hallState != null" >
+        hall_state = #{hallState,jdbcType=INTEGER},
+      </if>
+      <if test="hallCreateDate != null" >
+        hall_create_date = #{hallCreateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="hallFoodStory != null" >
+        hall_food_story = #{hallFoodStory,jdbcType=VARCHAR},
+      </if>
+      <if test="hallIntroduce != null" >
+        hall_introduce = #{hallIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="hallIsOpenForAll != null" >
+        hall_is_open_for_all = #{hallIsOpenForAll,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mamitang.entity.HallEntity" >
+    update mami_hall_info
+    set uid = #{uid,jdbcType=INTEGER},
+      hall_name = #{hallName,jdbcType=VARCHAR},
+      hall_phone = #{hallPhone,jdbcType=VARCHAR},
+      hall_address = #{hallAddress,jdbcType=VARCHAR},
+      hall_cover_url = #{hallCoverUrl,jdbcType=VARCHAR},
+      hall_supply_type = #{hallSupplyType,jdbcType=INTEGER},
+      hall_praise_num = #{hallPraiseNum,jdbcType=DECIMAL},
+      hall_collection_num = #{hallCollectionNum,jdbcType=DECIMAL},
+      hall_open_time = #{hallOpenTime,jdbcType=VARCHAR},
+      hall_state = #{hallState,jdbcType=INTEGER},
+      hall_create_date = #{hallCreateDate,jdbcType=TIMESTAMP},
+      hall_food_story = #{hallFoodStory,jdbcType=VARCHAR},
+      hall_introduce = #{hallIntroduce,jdbcType=VARCHAR},
+      hall_is_open_for_all = #{hallIsOpenForAll,jdbcType=BIT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
