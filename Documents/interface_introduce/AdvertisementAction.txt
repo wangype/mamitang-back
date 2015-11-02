@@ -1,0 +1,124 @@
+一、广告添加接口
+
+url:/advertisementinfo/add
+params:
+{
+	"name":"xxx",	//活动主题名称
+	"imgs":[{"path":"xxxxx","description":"xxx"},{"path":"xxxxx","description":"xxx"}]	//图片url和描述信息
+}
+method:POST
+
+response:
+{	
+	"status":0
+	"retMsg":"发布广告成功"
+}
+
+-------------------------------------------------------------------
+
+二、广告详情页接口
+接口为restful风格，参数在路径中传递
+url:/advertisementinfo/show/{id}
+{id}:xx 	//广告id
+method:GET
+
+response:
+{
+	"data":
+	{
+		"imgs":{"new_test1yyy": "newtest1yyy","test2yyyyy": "test12yyyyyyy"}, 	//图片url及描述
+		"name": "new_text1yyy", 		//名称
+		"publishtime": 1445926204000	//发布时间
+		"isenable":0					//是否启用
+	}, 
+	"status":0
+}
+--------------------------------------
+
+三、广告列表页接口
+接口为restful风格，参数在路径中传递
+url:/advertisementinfo/advertisements/{page}/to/{numOfPage}
+{page}:xx 	//第几页
+{numOfPage}:xx 	//每页多少条记录
+params:
+{
+	"name":"xxx"	//(可选)按照广告主题名称进行模糊查询
+	"starttime":"yyyy-MM-dd HH:mm:ss"	//(可选)按照起始时间查询，格式如下
+	"endtime":"yyyy-MM-dd HH:mm:ss"	//(可选)按照终止时间查询，格式如下
+}
+method:GET
+
+response:
+{	
+	"data":
+    {
+		"currentList":
+		[
+		 {
+		  "name":"xx",
+		  "publish":"xxxx-xx-xx",
+		  "isenable":0,
+		  "imgs":[
+		          {"id":xx,"path":"xxxxx","description":"xxx"},
+		 		  {"id":xx,"path":"xxxxx","description":"xxx"}
+		 		 ]
+		 },
+		 {
+		  "name":"xx",
+		  "publish":"xxxx-xx-xx",
+		  "isenable":0,
+		  "imgs":[
+		          {"id":xx,"path":"xxxxx","description":"xxx"},
+		 		  {"id":xx,"path":"xxxxx","description":"xxx"}
+		 		 ]
+		 }
+		]	
+	}
+	"status":0
+}
+
+-------------------------------------
+四、广告删除接口
+接口为restful风格，参数在路径中传递
+url:/advertisementinfo/delete/{id}
+{id}:xx 	//要删除广告的id
+method:GET
+
+response:
+{	
+	"status":0
+	"retMsg":"删除成功"
+}
+
+-------------------------------------
+五、广告更新接口
+接口为restful风格，参数在路径中传递
+url:/advertisementinfo/update/{id}
+{id}:xx 	//要更新广告的id
+params:
+{
+	"name":"xxx",	//活动主题名称
+	"imgs":[													//图片url和描述信息
+			{"id":1,"path":"xxxxx","description":"xxx"},
+			{"id":2,"path":"xxxxx","description":"xxx"}
+		   ]	
+}
+method:POST
+
+response:
+{	
+	"status":0
+	"retMsg":"更新成功"
+}
+
+-------------------------------------------
+六、上传图片接口
+url:/fileInfo/uploadImg
+
+response:
+{
+ "data":
+  {"imgInfo": "http://localhost:8080/image/7264ff42-189b-4275-a425-96843c5b68cb.jpg"},
+ "retMsg": "上传文件成功",
+ "status":0
+}

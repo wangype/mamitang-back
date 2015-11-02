@@ -1,0 +1,114 @@
+一、菜品详情页接口
+接口为restful风格，参数在路径中传递
+url:/foodinfo/show/{id}
+{id}为菜品id
+method:GET
+
+response:
+{
+  "data": 
+  {
+    "foodBeginSupplyDate": 1446490800000,
+    "foodEndSupplyDate": 1446501600000,
+    "foodIntroduce": "红烧里脊是什么什么",
+    "foodName": "红烧里脊",
+    "foodPictureUrl": "http://localhost:8080/mamitang/1.jpg",
+    "foodPrice": 23.0000,
+    "foodState": 1,
+    "foodSupplyCycle": "周三",
+    "foodSupplyNum": 20,
+    "foodSupplyType": 0,
+    "hallAddress": "neuq",
+    "hallName": "dongbei_hall",
+    "hallPhone": "13522519251"
+  },
+  "status": 0
+}
+--------------------------------------------------------------------
+
+二、菜品列表页接口
+接口为restful风格，参数在路径中传递
+url:/foodinfo/foods/{page}/to/{numOfPage}
+{page}为第几页
+{numOfPage}为每页多少条记录
+params:
+{
+	"querykey":"xxx"	//(可选)按照条件查询的条件名(范围为 供应方式:foodSupplyType、堂状态:foodState)
+	"queryvalue":x	//(可选)按照条件查询的条件内容(范围为 供应方式:0=带走1=堂吃、堂状态:1=上架0=下架)
+	"starttime":"yyyy-MM-dd HH:mm:ss"	//(可选)按照起始时间查询，格式所示
+	"endtime":"yyyy-MM-dd HH:mm:ss"	//(可选)按照终止时间查询，格式所示
+}
+method:GET
+
+response:
+{
+  "data": {
+    "currentList": [
+      {
+        "foodBeginSupplyDate": 1446490800000,
+        "foodEndSupplyDate": 1446501600000,
+        "foodIntroduce": "红烧里脊是什么什么",
+        "foodIsHomePageShow": false,
+        "foodLabel": "甜味",
+        "foodName": "红烧里脊",
+        "foodPictureUrl": "http://localhost:8080/mamitang/1.jpg",
+        "foodPrice": 23.0000,
+        "foodState": 1,
+        "foodSupplyCycle": "周三",
+        "foodSupplyNum": 20,
+        "foodSupplyType": 0,
+        "hallName": "dongbei_hall",
+        "hid": 2,
+        "id": 1,
+        "telephone": "13522519251"
+      },
+      {
+        "foodBeginSupplyDate": 1446476400000,
+        "foodEndSupplyDate": 1446505200000,
+        "foodIntroduce": "麻辣奥龙虾是什么什么",
+        "foodIsHomePageShow": false,
+        "foodLabel": "辣味",
+        "foodName": "麻辣奥龙虾",
+        "foodPictureUrl": "http://localhost:8080/mamitang/2.jpg",
+        "foodPrice": 44.0000,
+        "foodState": 1,
+        "foodSupplyCycle": "周二、周三",
+        "foodSupplyNum": 44,
+        "foodSupplyType": 1,
+        "hallName": "dongbei_hall",
+        "hid": 2,
+        "id": 2,
+        "telephone": "13522519251"
+      }
+    ],
+    "countOfPage": 2
+  },
+  "status": 0
+}
+--------------------------------------------------------------------
+
+三、菜品更新接口
+接口为restful风格，参数在路径中传递
+url:/foodinfo/update/{id}
+{id}为要更新菜品的id
+params:
+{
+	"foodName":"xxx",								//菜品名称
+	"foodState":0,									//堂状态1=上架0=下架
+	"foodSupplyType":0,								//供应方式0=带走1=堂吃
+	"foodSupplyCycle":"xxx",						//供应周期
+	"foodBeginSupplyDate":"yyyy-MM-dd HH:mm:ss",	//开始供应时间
+	"foodEndSupplyDate":"yyyy-MM-dd HH:mm:ss",		//结束供应时间
+	"foodPrice":"xxx",								//美食价格
+	"foodSupplyNum":"xxx",							//供应量
+	"foodPictureUrl":"xxx",							//美食图片URL
+	"foodIntroduce":"xxx",							//美食介绍
+}
+method:POST
+
+response:
+{	
+	"status":0
+	"retMsg":"更新成功"
+}
+--------------------------------------------------------------------

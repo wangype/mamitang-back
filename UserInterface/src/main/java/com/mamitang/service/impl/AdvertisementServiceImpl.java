@@ -212,6 +212,8 @@ public class AdvertisementServiceImpl implements IAdvertisementService {
                 }
             }
         }
+        result.setStatus(ReturnStatus.SUCCESS);
+        result.setRetMsg("更新成功");
         return result;
     }
 }

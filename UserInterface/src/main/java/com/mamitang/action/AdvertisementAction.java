@@ -113,7 +113,6 @@ public class AdvertisementAction {
     }
 
     /**
-     *
      * @param id            要更新的广告id
      * @param paraminfo     代表请求参数，对应AdvertisementAddRequest类
      * @return
