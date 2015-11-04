@@ -1,6 +1,8 @@
 package com.mamitang.service;
 
 import com.mamitang.entity.UserEntity;
+import com.mamitang.model.UserRegisterDTO;
+import com.mamitang.response.RetResponse;
 
 import java.util.Map;
 
@@ -9,14 +11,11 @@ import java.util.Map;
  */
 public interface IUserService {
 
-    UserEntity getUserById(int id);
-
     UserEntity login(String userName, String passWord);
 
-    UserEntity getUserByName(String username);
+    RetResponse register(UserRegisterDTO request_info);
 
-    int register(UserEntity user);
+    RetResponse getAllUsers(int num, int numOfPage, String querykey, String queryvalue);
 
-    Map getAllUsers(int num, int numOfPage, String querykey, String queryvalue);
-
+    RetResponse getUserDetail(int id);
 }

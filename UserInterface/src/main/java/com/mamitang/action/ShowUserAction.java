@@ -31,14 +31,12 @@ public class ShowUserAction {
                                  @RequestParam(value = "querykey" , required = false) String querykey ,
                                  @RequestParam(value = "queryvalue" , required = false) String queryvalue ){
         RetResponse result = new RetResponse();
-        if(page<=0 || numOfPage<1){
-            result.setRetMsg("the error parameters");
+        try {
+            result = userService.getAllUsers(page , numOfPage , querykey , queryvalue);
+        }catch (Exception e){
             result.setStatus(ReturnStatus.FAIL);
-            return result;
+            result.setRetMsg(e.getMessage());
         }
-        Map result_map = userService.getAllUsers(page , numOfPage , querykey , queryvalue);
-        result.setStatus(ReturnStatus.SUCCESS);
-        result.setData(result_map);
         return result;
     }
 
@@ -46,32 +44,12 @@ public class ShowUserAction {
     @ResponseBody
     public RetResponse showUser(@PathVariable("id") int id){
         RetResponse result = new RetResponse();
-        if(id<0){
+        try {
+            result = userService.getUserDetail(id);
+        }catch (Exception e){
             result.setStatus(ReturnStatus.FAIL);
-            result.setRetMsg("the error parameters");
-            return result;
+            result.setRetMsg(e.getMessage());
         }
-        UserEntity userEntity = userService.getUserById(id);
-        if(userEntity==null){
-            result.setStatus(ReturnStatus.FAIL);
-            result.setRetMsg("the user is not existed");
-            return result;
-        }
-        UserDetail userDetail = new UserDetail();
-
-        //convert start (temp)
-        userDetail.setAddress("example_address");
-        userDetail.setBank("example_bank");
-        userDetail.setCreatetime(userEntity.getCreatetime());
-        userDetail.setEmail("example_email");
-        userDetail.setIsactive(userEntity.getIsactive());
-        userDetail.setNickname(userEntity.getNickname());
-        userDetail.setRole("example_role");
-        userDetail.setTelephone(userEntity.getUsername());
-        //convert over (temp)
-
-        result.setStatus(ReturnStatus.SUCCESS);
-        result.setData(userDetail);
         return result;
     }
 }

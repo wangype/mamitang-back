@@ -3,6 +3,9 @@ package com.mamitang.dao;
 import com.mamitang.DaoMaster;
 import com.mamitang.entity.HallEntity;
 
+import java.util.List;
+import java.util.Map;
+
 @DaoMaster
 public interface HallEntityMapper {
     int deleteByPrimaryKey(Integer id);
@@ -16,4 +19,8 @@ public interface HallEntityMapper {
     int updateByPrimaryKeySelective(HallEntity record);
 
     int updateByPrimaryKey(HallEntity record);
+
+    int getAllHallsCount();
+
+    List<HallEntity> getAllHalls(Map sql_map);
 }
