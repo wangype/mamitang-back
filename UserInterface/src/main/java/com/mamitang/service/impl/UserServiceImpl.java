@@ -76,6 +76,7 @@ public class UserServiceImpl implements IUserService{
         result.setRetMsg("register successfully");
         return result;
     }
+
     private int registerToDao(UserEntity user) {
         String passStr = null;
         try {

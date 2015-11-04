@@ -18,4 +18,5 @@ public interface IUserService {
     RetResponse getAllUsers(int num, int numOfPage, String querykey, String queryvalue);
 
     RetResponse getUserDetail(int id);
+
 }

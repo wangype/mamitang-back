@@ -40,6 +40,7 @@ public class ShowUserAction {
         return result;
     }
 
+
     @RequestMapping(value = "/user/{id}" , method = RequestMethod.GET)
     @ResponseBody
     public RetResponse showUser(@PathVariable("id") int id){
