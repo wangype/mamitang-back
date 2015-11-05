@@ -1,10 +1,10 @@
+一、
 用户列表接口
 注意，提供的接口风格为RESTFUl风格，参数在路径中传递
 url: /userinfo/users/{page}/to{numOfPage}
 param: {'page':'xx'}
 	   {'numOfPage':'xx'}
 method: GET
-
 
 //返回的status中只有两个值，成功为0，失败为1,后续的接口都是如此
 response:
@@ -37,6 +37,29 @@ countOfPage：总页数
       }
     ],
     "countOfPage": 4
+  },
+  "status": 0
+}
+
+二、
+用户详细信息接口
+注意，提供的接口风格为RESTFUl风格，参数在路径中传递，id为用户列表接口中返回的对应记录的id值
+url: /userinfo/user/{id}
+param: {'id':'xx'}
+method: GET
+
+//返回的status中只有两个值，成功为0，失败为1,后续的接口都是如此
+data：对应id值的用户详细信息
+{
+  "data": {
+    "address": "example_address",
+    "bank": "example_bank",
+    "email": "example_email",
+    "createtime": "xxxxxx",
+    "nickname": "sf",
+    "role": "example_role",
+    "telephone": "lyy11",
+    "isactive": "xxx"
   },
   "status": 0
 }

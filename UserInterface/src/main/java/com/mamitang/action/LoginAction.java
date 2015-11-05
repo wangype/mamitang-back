@@ -55,6 +55,4 @@ public class LoginAction {
         retResponse.setData(userModel);
         return retResponse;
     }
-
-
 }

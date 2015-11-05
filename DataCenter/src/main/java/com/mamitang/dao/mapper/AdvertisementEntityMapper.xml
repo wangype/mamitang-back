@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mamitang.dao.AdvertisementEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.mamitang.entity.AdvertisementEntity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="publishtime" property="publishtime" jdbcType="TIMESTAMP" />
+    <result column="isenable" property="isenable" jdbcType="TINYINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, publishtime, isenable
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_advertisement
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <!--get the count of all advertisements    lyy-->
+  <select id="getAllAdvertisementsCount" resultType="java.lang.Integer">
+    SELECT
+    COUNT(*)
+    FROM tb_advertisement
+  </select>
+
+  <!--query all users with paging   &lt; <  &gt; >-->
+  <select id="getAllAdvertisements" resultMap="BaseResultMap" parameterType="java.util.Map">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM tb_advertisement WHERE 1=1
+    <if test="name != null">
+      AND name LIKE CONCAT('%',#{name,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="endtime != null">
+      AND publishtime &lt;= #{endtime,jdbcType=TIMESTAMP}
+    </if>
+    <if test="starttime != null">
+      AND publishtime &gt;= #{starttime,jdbcType=TIMESTAMP}
+    </if>
+    ORDER BY id LIMIT #{start} , #{end}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_advertisement
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mamitang.entity.AdvertisementEntity" >
+    insert into tb_advertisement (id, name, publishtime, 
+      isenable)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{publishtime,jdbcType=TIMESTAMP}, 
+      #{isenable,jdbcType=TINYINT})
+  </insert>
+
+  <!--insert Entity and return the primary key   lyy-->
+  <insert id="insertAndGetId" useGeneratedKeys="true" keyProperty="id" parameterType="com.mamitang.entity.AdvertisementEntity" >
+    insert into tb_advertisement (name, publishtime,
+    isenable)
+    values (#{name,jdbcType=VARCHAR}, #{publishtime,jdbcType=TIMESTAMP},
+    #{isenable,jdbcType=TINYINT})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.mamitang.entity.AdvertisementEntity" >
+    insert into tb_advertisement
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="publishtime != null" >
+        publishtime,
+      </if>
+      <if test="isenable != null" >
+        isenable,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="publishtime != null" >
+        #{publishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isenable != null" >
+        #{isenable,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mamitang.entity.AdvertisementEntity" >
+    update tb_advertisement
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="publishtime != null" >
+        publishtime = #{publishtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isenable != null" >
+        isenable = #{isenable,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mamitang.entity.AdvertisementEntity" >
+    update tb_advertisement
+    set name = #{name,jdbcType=VARCHAR},
+      publishtime = #{publishtime,jdbcType=TIMESTAMP},
+      isenable = #{isenable,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

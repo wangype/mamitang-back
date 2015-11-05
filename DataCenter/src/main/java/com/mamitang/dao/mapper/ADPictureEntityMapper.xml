@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mamitang.dao.ADPictureEntityMapper" >
+  <resultMap id="BaseResultMap" type="com.mamitang.entity.ADPictureEntity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="ad_id" property="adId" jdbcType="INTEGER" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, ad_id, description, path
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_adpicture
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <!--删除指定id广告中的图片信息-->
+  <delete id="deleteByAdId" parameterType="java.lang.Integer">
+    DELETE FROM tb_adpicture
+    WHERE ad_id = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <!--获取指定id广告的所有图片 lyy-->
+  <select id="getImgsByAID" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM tb_adpicture
+    WHERE ad_id = #{ad_id,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_adpicture
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.mamitang.entity.ADPictureEntity" >
+    insert into tb_adpicture (id, ad_id, description, 
+      path)
+    values (#{id,jdbcType=INTEGER}, #{adId,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
+      #{path,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mamitang.entity.ADPictureEntity" >
+    insert into tb_adpicture
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="adId != null" >
+        ad_id,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="path != null" >
+        path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="adId != null" >
+        #{adId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mamitang.entity.ADPictureEntity" >
+    update tb_adpicture
+    <set >
+      <if test="adId != null" >
+        ad_id = #{adId,jdbcType=INTEGER},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mamitang.entity.ADPictureEntity" >
+    update tb_adpicture
+    set ad_id = #{adId,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
